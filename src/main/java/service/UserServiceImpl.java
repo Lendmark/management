@@ -1,9 +1,14 @@
 package service;
 
+import api.UserDao;
 import api.UserService;
+import dao.UserDaoImpl;
 import entity.User;
-
-import java.util.ArrayList;
+import exception.UserLoginAlreadyExistException;
+import exception.UserShortLengthLoginException;
+import exception.UserShortLengthPasswordException;
+import validator.UserValidator;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,37 +16,33 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
 
-    List<User> users;
+    private static UserServiceImpl instance = null;
+    private UserDao userDao = UserDaoImpl.getInstance();
+    private UserValidator userValidator = UserValidator.getInstance();
 
-     public UserServiceImpl(){
-         this.users = new ArrayList<User>();
-     }
+    private UserServiceImpl() {}
 
-     public UserServiceImpl (List<User> users) {
-         this.users = users;
-     }
-
-    public List<User> getAllUsers() {
-        return users;
+    public static UserServiceImpl getInstance(){
+        if(instance == null) {
+            instance = new UserServiceImpl();
+        }
+        return instance;
     }
 
-    public void addUser(User user) {
-        users.add(user);
+    public List<User> getAllUsers() throws IOException {
+        return userDao.getAllUsers();
+    }
+
+    public void addUser(User user) throws IOException, UserShortLengthPasswordException,
+            UserShortLengthLoginException, UserLoginAlreadyExistException {
+        if(userValidator.isValidate(user)){
+            userDao.saveUser(user);
+        }
     }
 
     @Override
-    public void removeUserById(Long userId) {
-         for(int i = 0; i<users.size(); i++){
-             User userFromList = users.get(i);
-             // wyciaganie usera przypisujemy kolejno iterujacego usera
-             // z fora do zmiennej
-             if(userFromList.getId() == userId){
-                 users.remove(i);
-                 break;
-                 // jeśli id usera ziterowanego jest takie same jakie przyszło w zadaniu usun tego usera
-                 // po usunieciu przerywamy petle bo zadanie wykonane
-             }
-
-         }
+    public void removeUserById(Long userId) throws IOException {
+        userDao.removeUserById(userId);
     }
+
 }
