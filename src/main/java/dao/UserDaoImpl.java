@@ -1,7 +1,6 @@
 package dao;
 
 import api.UserDao;
-import com.sun.org.apache.bcel.internal.generic.LUSHR;
 import entity.User;
 import entity.parser.UserParser;
 import utils.FileUtils;
@@ -86,29 +85,6 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
-    public User getUserById(Long userId) throws IOException{
-        List<User> users = getAllUsers();
-
-        for(User user: users){
-            boolean isFoundUser = user.getId().equals(userId);
-            if(isFoundUser){
-                return user;
-            }
-        }
-        return null;
-    }
-
-    public User getUserByLogin (String login) throws IOException{
-        List<User> users = getAllUsers();
-
-        for(User user: users){
-            boolean isFoundUser = user.getLogin().equals(login);
-            if(isFoundUser){
-                return user;
-            }
-        }
-        return null;
-    }
 
 
 }
