@@ -95,13 +95,9 @@ public class UserServiceImpl implements UserService {
         return isCorrectLogin && isCorrectPass;
     }
 
-    private boolean isLoginAlreadyExist(String login) {
-        User user = null;
-        try {
-            user = getUserByLogin(login);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private boolean isLoginAlreadyExist(String login) throws IOException {
+        User user = getUserByLogin(login);
+
         return user != null;
 
     }
