@@ -10,7 +10,7 @@ public class MaterialParser {
     public static Material parseStrToMaterial(String str) {
 
         String material = str.toUpperCase();
-
+        
         if (material.equals("LEATHER")) {
             return Material.LEATHER;
         } else if (material.equals("FUR")) {

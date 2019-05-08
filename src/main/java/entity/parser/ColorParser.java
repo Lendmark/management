@@ -7,7 +7,7 @@ import entity.enums.Color;
  */
 public class ColorParser {
 
-    public static Color pasreStrToColor(String str){
+    public static Color parseStrToColor(String str){
 
         String color = str.toUpperCase();
 
@@ -26,4 +26,6 @@ public class ColorParser {
         }
         return Color.WHITE;
     }
+
+
 }
