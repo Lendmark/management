@@ -26,3 +26,8 @@ public interface ProductService {
     void removeProduct(String productName) throws IOException;
 
 }
+
+
+// FIXME: 07.05.2019 Dokończyć tydzień 6, Przejrzeć zmiany na gicie odnośnie pracy domowej
+//  zrozumieć ją na spokojnie. Doczytać o tych enumach i koleckjach.
+//

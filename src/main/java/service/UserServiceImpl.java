@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
         }
 
         boolean isCorrectLogin = foundUser.getLogin().equals(login);
-        boolean isCorrectPass = foundUser.getClass().equals(password);
+        boolean isCorrectPass = foundUser.getPassword().equals(password);
 
         return isCorrectLogin && isCorrectPass;
     }
