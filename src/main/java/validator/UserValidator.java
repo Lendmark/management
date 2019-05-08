@@ -1,12 +1,8 @@
 package validator;
 
-import api.UserDao;
-import dao.UserDaoImpl;
 import entity.User;
-import exception.UserLoginAlreadyExistException;
 import exception.UserShortLengthLoginException;
 import exception.UserShortLengthPasswordException;
-;import java.io.IOException;
 
 /**
  * Create by Lendemark on 05.05.2019.
@@ -19,7 +15,6 @@ public class UserValidator {
     }
 
     private static UserValidator instance = null;
-    private UserDao userDao = UserDaoImpl.getInstance();
 
     public static UserValidator getInstance() {
         if (instance == null) {
@@ -28,15 +23,15 @@ public class UserValidator {
         return instance;
     }
 
-    public boolean isValidate(User user) throws UserLoginAlreadyExistException,
-            UserShortLengthLoginException, UserShortLengthPasswordException {
-
-        if (isPasswordLengthEnough(user.getPassword())) {
-            throw new UserShortLengthPasswordException("Password is too short.");
-        }
+    public boolean isValidate(User user) throws UserShortLengthLoginException,
+            UserShortLengthPasswordException {
 
         if (isLoginLengthEnough(user.getLogin())) {
-            throw new UserShortLengthLoginException("Login is too short.");
+            throw new UserShortLengthLoginException("Login is too short min 4 char.");
+        }
+
+        if (isPasswordLengthEnough(user.getPassword())) {
+            throw new UserShortLengthPasswordException("Password is too short min 6 char.");
         }
 
         return true;

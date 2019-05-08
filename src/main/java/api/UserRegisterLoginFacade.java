@@ -2,7 +2,6 @@ package api;
 
 import entity.User;
 
-import java.io.IOException;
 
 /**
  * Create by Lendemark on 07.05.2019.

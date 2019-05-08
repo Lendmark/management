@@ -78,7 +78,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isCorrectLoginAndPassword(String login, String password){
-        User foundUser = getUserByLogin(login);
+        User foundUser = null;
+        try {
+            foundUser = getUserByLogin(login);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         if(foundUser == null){
             return false;
@@ -91,7 +96,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean isLoginAlreadyExist(String login) {
-        User user = getUserByLogin(login);
+        User user = null;
+        try {
+            user = getUserByLogin(login);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return user != null;
 
     }
