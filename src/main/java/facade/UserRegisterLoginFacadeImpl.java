@@ -5,8 +5,6 @@ import api.UserService;
 import entity.User;
 import service.UserServiceImpl;
 
-import java.io.IOException;
-
 /**
  * Create by Lendemark on 07.05.2019.
  */

@@ -26,11 +26,11 @@ public class UserValidator {
     public boolean isValidate(User user) throws UserShortLengthLoginException,
             UserShortLengthPasswordException {
 
-        if (isLoginLengthEnough(user.getLogin())) {
+        if (!isLoginLengthEnough(user.getLogin())) {
             throw new UserShortLengthLoginException("Login is too short min 4 char.");
         }
 
-        if (isPasswordLengthEnough(user.getPassword())) {
+        if (!isPasswordLengthEnough(user.getPassword())) {
             throw new UserShortLengthPasswordException("Password is too short min 6 char.");
         }
 
@@ -41,9 +41,7 @@ public class UserValidator {
         return password.length() >= MIN_LENGTH_PASSWORD;
     }
 
-    private boolean isLoginLengthEnough(String login) {
-        return login.length() >= MIN_LENGTH_LOGIN;
-    }
+    private boolean isLoginLengthEnough(String login) { return login.length() >= MIN_LENGTH_LOGIN; }
 
 
 }

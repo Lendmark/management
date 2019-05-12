@@ -6,7 +6,6 @@ import dao.UserDaoImpl;
 import entity.User;
 import exception.UserLoginAlreadyExistException;
 import validator.UserValidator;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
         return instance;
     }
 
-    public List<User> getAllUsers() throws IOException {
+    public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
 
@@ -47,7 +46,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public User getUserById(Long userId) throws IOException{
+    public User getUserById(Long userId) {
         List<User> users = getAllUsers();
 
         for(User user: users){
@@ -59,7 +58,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public User getUserByLogin (String login) throws IOException {
+    public User getUserByLogin (String login) {
         List<User> users = getAllUsers();
 
         for(User user: users){
@@ -72,33 +71,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUserById(Long userId) throws IOException {
+    public void removeUserById(Long userId) {
         userDao.removeUserById(userId);
     }
 
     @Override
     public boolean isCorrectLoginAndPassword(String login, String password){
-        User foundUser = null;
-        try {
-            foundUser = getUserByLogin(login);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        User foundUser = getUserByLogin(login);
         if(foundUser == null){
             return false;
         }
 
         boolean isCorrectLogin = foundUser.getLogin().equals(login);
         boolean isCorrectPass = foundUser.getPassword().equals(password);
-
         return isCorrectLogin && isCorrectPass;
     }
 
-    private boolean isLoginAlreadyExist(String login) throws IOException {
+    private boolean isLoginAlreadyExist(String login) {
         User user = getUserByLogin(login);
-
         return user != null;
-
     }
 }

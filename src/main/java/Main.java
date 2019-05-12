@@ -1,4 +1,4 @@
-import api.ProductService;
+import api.ProductFacade;
 import api.UserRegisterLoginFacade;
 import entity.Boots;
 import entity.Cloth;
@@ -10,8 +10,8 @@ import entity.enums.SkinType;
 import entity.parser.ColorParser;
 import entity.parser.MaterialParser;
 import entity.parser.SkinParser;
+import facade.ProductFacadeImpl;
 import facade.UserRegisterLoginFacadeImpl;
-import service.ProductServiceImpl;
 import java.util.Scanner;
 
 public class Main {
@@ -28,6 +28,8 @@ public class Main {
     public static void loggedMenu() {
         System.out.println("MANAGEMENT MENU");
         System.out.println("1 - Dodaj nowy product");
+        System.out.println("2 - Usuń product");
+        System.out.println("3 - Wyświetl dostepne produkty");
         System.out.println("0 - Wyloguj się");
     }
 
@@ -127,7 +129,7 @@ public class Main {
 
     public static void main(String[] args) {
         UserRegisterLoginFacade userFacade = UserRegisterLoginFacadeImpl.getInstance();
-        ProductService productService = ProductServiceImpl.getInstance();
+        ProductFacade productFacade = ProductFacadeImpl.getInstance();
         boolean appOn = true;
         boolean loggedOn = false;
         int read;
@@ -187,23 +189,26 @@ public class Main {
                                 product = createOtherProduct();
                                 break;
                         }
-                        if (productService.saveProduct(product)) {
-                            System.out.println("Produkt został utworzony");
-                        } else {
-                            System.out.println("Produkt nie został utworzony.");
-                        }
+                        System.out.println(productFacade.createProduct(product));
                         break;
-
-
+                    case 2:
+                        System.out.println("Dostępne produkty: " + productFacade.getAllProducts());
+                        System.out.println("Podaj nazwę produktu do usunięcia: ");
+                        String productName = scanner.next();
+                        System.out.println(productFacade.removeProduct(productName));
+                        break;
+                    case 3:
+                        System.out.println("Dostępne produkty: " + productFacade.getAllProducts());
+                        break;
                     case 0:
                         loggedOn = false;
                         break;
+
+
                 }
 
 
             }
-
-
         }
 
 

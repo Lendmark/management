@@ -19,15 +19,10 @@ public interface ProductService {
     Product getProductByProductName(String productName) throws IOException;
 
     boolean isProductOnWarehouse(String productName);
-    boolean isProductExist(String productName);
-    boolean isProductExist(Long productId);
+    boolean isProductExist(String productName) throws IOException;
+    boolean isProductExist(Long productId) throws IOException;
 
-    boolean saveProduct(Product product);
+    boolean saveProduct(Product product) throws ProductWeightNoPositiveException, ProductNameEmptyException, ProductCountNegativeException, ProductPriceNoPositiceException, IOException;
     void removeProduct(String productName) throws IOException;
 
 }
-
-
-// FIXME: 07.05.2019 Dokończyć tydzień 6, Przejrzeć zmiany na gicie odnośnie pracy domowej
-//  zrozumieć ją na spokojnie. Doczytać o tych enumach i koleckjach.
-//
